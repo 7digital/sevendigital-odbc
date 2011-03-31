@@ -1,0 +1,28 @@
+require 'rubygems' unless ENV['NO_RUBYGEMS']
+%w[rake rake/clean fileutils newgem rubigen].each { |f| require f }
+require File.dirname(__FILE__) + '/lib/sevendigital-odbc'
+
+# Generate all the Rake tasks
+# Run 'rake -T' to see list of generated tasks (from gem root directory)
+$hoe = Hoe.new('sevendigital-odbc', SevenDigital::ODBC::VERSION) do |p|
+  p.developer('SevenDigital', 'dan.rough@7digital.com')
+  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
+  p.post_install_message = File.read('PostInstall.txt')
+  p.rubyforge_name       = nil # Not available on rubyforge
+  p.extra_dev_deps = [
+    ['newgem', ">= #{::Newgem::VERSION}"]
+  ]
+  
+  p.clean_globs |= %w[**/.DS_Store tmp *.log]
+  p.rsync_args = '-av --delete --ignore-errors'
+  
+  # Seealso: [c:/ruby/lib/ruby/gems/1.8/gems/rake-0.8.7/lib/rake/packagetask.rb, line 119]
+  p.need_tar = false
+  p.need_zip = false
+end
+
+require 'newgem/tasks' # load /tasks/*.rake
+Dir['tasks/**/*.rake'].each { |t| load t }
+
+# TODO - want other tests/tasks run by default? Add them to the list
+# task :default => [:spec, :features]

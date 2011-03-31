@@ -1,0 +1,9 @@
+= sevendigital-odbc
+* http://ruby.sevendigital.com 
+== DESCRIPTION:
+* Provides a database abstraction.
+== INSTALL:
+* gem install sevendigital.odbc
+== NOTE:
+* Connection strings are expected to contain provider: 
+* Data Source=servername;Provider=SQLOLEDB.1;Initial Catalog=PersonalWind;User Id=userid;Password=xxx;Application Name=appname
