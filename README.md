@@ -24,4 +24,4 @@
 	
 ## Credits:
 
-Mostly the work of @benbiddington
+Mostly the work of @ben-biddington
